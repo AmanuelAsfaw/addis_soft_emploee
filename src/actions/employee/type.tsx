@@ -14,6 +14,10 @@ export const UPDATE_EMPLOYEE_REQUEST = "UPDATE_EMPLOYEE_REQUEST";
 export const UPDATE_EMPLOYEE_SUCCESS = "UPDATE_EMPLOYEE_SUCCESS";
 export const UPDATE_EMPLOYEE_FAILURE = "UPDATE_EMPLOYEE_FAILURE";
 
+export const REMOVE_EMPLOYEE_REQUEST = "REMOVE_EMPLOYEE_REQUEST";
+export const REMOVE_EMPLOYEE_SUCCESS = "REMOVE_EMPLOYEE_SUCCESS";
+export const REMOVE_EMPLOYEE_FAILURE = "REMOVE_EMPLOYEE_FAILURE";
+
 export interface IEmployee {
   _id: number | string;
   name: string;
@@ -137,7 +141,35 @@ export type UpdateEmployeeSuccess = {
 
 export type UpdateEmployeeFailure = {
   type : typeof UPDATE_EMPLOYEE_FAILURE;
-  payload : GetEmployeeFailurePayload;
+  payload : UpdateEmployeeFailurePayload;
+}
+
+// Remove employee
+export interface RemoveEmployeeSuccessPayload {
+  success : boolean | false;
+  message : string | null;
+  employee : IEmployee;
+}
+
+export interface RemoveEmployeeFailurePayload {
+  error : string | Object | null;
+  message : string | null;
+  success : boolean | null | false;
+}
+
+export interface RemoveEmployeeRequest {
+  type : typeof REMOVE_EMPLOYEE_REQUEST;
+  id : string;
+}
+
+export type RemoveEmployeeSuccess = {
+  type : typeof REMOVE_EMPLOYEE_SUCCESS;
+  payload : RemoveEmployeeSuccessPayload;
+}
+
+export type RemoveEmployeeFailure = {
+  type : typeof REMOVE_EMPLOYEE_FAILURE;
+  payload : RemoveEmployeeFailurePayload;
 }
 
 export type EmployeeActions =
@@ -152,4 +184,7 @@ export type EmployeeActions =
   | GetEmployeeFailure
   | UpdateEmployeeRequest
   | UpdateEmployeeSuccess
-  | UpdateEmployeeFailure;
+  | UpdateEmployeeFailure
+  | RemoveEmployeeRequest
+  | RemoveEmployeeSuccess
+  | RemoveEmployeeFailure;
