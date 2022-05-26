@@ -1,9 +1,9 @@
 import { SagaIterator } from "redux-saga";
 import { all, call, put, takeLatest } from "redux-saga/effects";
-import { addEmployeeFailure, addEmployeeSuccess, fetchEmployeeFailure, fetchEmployeeSuccess, getEmployeeByIdFailure, getEmployeeByIdSuccess, updateEmployeeFailure, updateEmployeeSuccess } from "../actions/employee/actions";
+import { addEmployeeFailure, addEmployeeSuccess, deleteEmployeeFailure, deleteEmployeeSuccess, fetchEmployeeFailure, fetchEmployeeRequest, fetchEmployeeSuccess, getEmployeeByIdFailure, getEmployeeByIdSuccess, updateEmployeeFailure, updateEmployeeSuccess } from "../actions/employee/actions";
 
-import { AddEmployeeRequest, CREATE_EMPLOYEE_REQUEST, FETCH_EMPLOYEE_REQUEST, GetEmployeeRequest, GET_EMPLOYEE_REQUEST, UpdateEmployeeRequest, UPDATE_EMPLOYEE_REQUEST } from "../actions/employee/type";
-import { addEmployee, getEmployeeById, getEmployees, updateEmployee } from "../api/employee";
+import { AddEmployeeRequest, CREATE_EMPLOYEE_REQUEST, FETCH_EMPLOYEE_REQUEST, GetEmployeeRequest, GET_EMPLOYEE_REQUEST, RemoveEmployeeRequest, REMOVE_EMPLOYEE_REQUEST, UpdateEmployeeRequest, UPDATE_EMPLOYEE_REQUEST } from "../actions/employee/type";
+import { addEmployee, getEmployeeById, getEmployees, removeEmployeeById, updateEmployee } from "../api/employee";
 
 /*
   Worker Saga: Fired on FETCH_Employee_REQUEST action
@@ -173,6 +173,56 @@ function* updateEmployeeSage(action: UpdateEmployeeRequest) : any {
 }
 
 /*
+  Worker Saga: Fired on REMOVE_EMPLOYEE_REQUEST action
+*/
+function* removeEmployeeSage(action: RemoveEmployeeRequest) : any {
+  try {
+    console.log('id to remove'+ action.id);
+    
+    const response = yield call(removeEmployeeById, action.id)
+
+    console.log('remove employee by id response ', response)
+    let data = response.data
+
+    if (data.success) {
+      let employee = {
+        _id : data.employee._id, name : data.employee.name,
+        birth_date: data.employee.birth_date, 
+        gender: data.employee.gender, salary: data.employee.salary
+      }
+      yield put(
+        deleteEmployeeSuccess({
+          employee : employee,
+          success : true,
+          message : data.message
+        })
+      )
+      yield put(fetchEmployeeRequest())
+    }
+    else {
+      yield put(
+        deleteEmployeeFailure(
+          {
+            error : data.message,
+            message : data.message,
+            success : false
+          }
+        )
+      )
+    }
+    
+  } catch (e) {
+    yield put(
+      deleteEmployeeFailure({
+        error: (e as Error).message,
+        success : false,
+        message : (e as Error).message,
+      })
+    )
+  }
+}
+
+/*
   Starts worker saga on latest dispatched `FETCH_Employee_REQUEST`, `CREATE_EMPLOYEE_REQUEST` action.
   Allows concurrent increments.
 */
@@ -181,7 +231,7 @@ function* onEmployeeSaga() : SagaIterator{
     takeLatest(FETCH_EMPLOYEE_REQUEST, fetchGetEmployeesSaga),
     takeLatest(CREATE_EMPLOYEE_REQUEST, addEmployeeSage),
     takeLatest(GET_EMPLOYEE_REQUEST, getEmployeeByIdSage),
-    takeLatest(UPDATE_EMPLOYEE_REQUEST, updateEmployeeSage),
+    takeLatest(REMOVE_EMPLOYEE_REQUEST, removeEmployeeSage),
   ]);
 }
 
