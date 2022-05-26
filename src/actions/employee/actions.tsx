@@ -12,6 +12,14 @@ import {
   GetEmployeeFailurePayload,
   GetEmployeeFailure,
   GET_EMPLOYEE_FAILURE,
+  UpdateEmployeeRequest,
+  UPDATE_EMPLOYEE_REQUEST,
+  UPDATE_EMPLOYEE_SUCCESS,
+  UPDATE_EMPLOYEE_FAILURE,
+  UpdateEmployeeSuccessPayload,
+  UpdateEmployeeSuccess,
+  UpdateEmployeeFailure,
+  UpdateEmployeeFailurePayload,
 } from "./type";
 
 import {
@@ -84,5 +92,25 @@ export const getEmployeeByIdFailure = (
   payload : GetEmployeeFailurePayload
 ) : GetEmployeeFailure => ({
   type : GET_EMPLOYEE_FAILURE,
+  payload,
+})
+
+// Update Employee request actions
+export const updateEmployeeRequest = (employee: IEmployee) : UpdateEmployeeRequest => ({
+  type : UPDATE_EMPLOYEE_REQUEST,
+  employee : employee
+})
+
+export const updateEmployeeSuccess = (
+  payload : UpdateEmployeeSuccessPayload
+): UpdateEmployeeSuccess => ({
+  type : UPDATE_EMPLOYEE_SUCCESS,
+  payload,
+})
+
+export const updateEmployeeFailure = (
+  payload : UpdateEmployeeFailurePayload
+) : UpdateEmployeeFailure => ({
+  type : UPDATE_EMPLOYEE_FAILURE,
   payload,
 })
