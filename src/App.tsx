@@ -10,7 +10,7 @@ function App() {
       <Routes>
         <Route path='/' element={<IndexPage/>}/>
         <Route path='/create' element={<CreatePage/>}/>
-        <Route path='/update' element={<UpdatePage/>}/>
+        <Route path='/update/:id' element={<UpdatePage/>}/>
       </Routes>      
     </Router>
   );

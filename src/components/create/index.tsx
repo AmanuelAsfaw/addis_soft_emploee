@@ -1,6 +1,9 @@
-import { FormEvent, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { FormEvent, useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { addEmployeeRequest } from '../../actions/employee/actions';
+import { getAddEmployeeSuccesSelector, getPendingSelector } from '../../selectors/employee';
 import LabledDateInputField from './LabledDateInputField';
 import LabledDropdownField from './LabledDropdownField';
 import LabledInputField from './LabledInputField';
@@ -31,9 +34,12 @@ const CreateEmployee = () => {
     const [birth_date, setBirthDate] = useState<string| Date | null>(null)
     const [gender, setGender] = useState<string | null>(null)
     const [salary, setSalary] = useState<Number | null>(null)
+    
+    const success = useSelector(getAddEmployeeSuccesSelector)
+    const pending = useSelector(getPendingSelector)
 
     const dispatch = useDispatch()
-
+    let history = useNavigate()
     const [errorMessage, setErrorMessage] = useState<string | null>(null)
 
     const dataList = [
@@ -53,10 +59,24 @@ const CreateEmployee = () => {
             setErrorMessage('All information are required.')
         }
         else{
-            // dispatch()
             console.log(name, birth_date, gender, salary)
+            console.log(new Date(birth_date).toString());
+            
+            dispatch(addEmployeeRequest({
+                name,
+                birth_date : new Date(birth_date).toString(),
+                gender,
+                salary,
+                _id : '',
+            }))
         }
     }
+
+    useEffect(() => {
+        if(success && !pending){
+            history('/')
+        }
+    }, [success, pending])
 
     return <Wrapper>
         <p>{errorMessage}</p>

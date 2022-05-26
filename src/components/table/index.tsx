@@ -78,7 +78,7 @@ const EmployeeTable = ( props: IProps) => {
                         <BodyRowCell>{data.gender}</BodyRowCell>
                         <BodyRowCell>{data.salary.toString()}</BodyRowCell>
                         <BodyRowCell>
-                            <EditBtn href="/update">Edit</EditBtn>    
+                            <EditBtn href={"/update/"+data._id}>Edit</EditBtn>    
                             <DeleteBtn>Delete</DeleteBtn>    
                         </BodyRowCell>
                     </BodyRow>

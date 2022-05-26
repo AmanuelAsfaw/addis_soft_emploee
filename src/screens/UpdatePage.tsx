@@ -1,5 +1,7 @@
+import { useParams } from "react-router-dom"
 import styled from "styled-components"
 import CreateEmployee from "../components/create"
+import UpdateEmployee from "../components/create/Update"
 
 const Title = styled.h1`
     padding : 10px;
@@ -22,10 +24,12 @@ const FormWrapper = styled.div`
 `
 const UpdatePage = () => {
 
+    let { id } = useParams()
+
     return <Wrapper>
         <Title>Update Employee</Title>
         <CreateLink href="/">Back</CreateLink>
-        <CreateEmployee/>
+        <UpdateEmployee id={id ? id :'/'}/>
     </Wrapper>
 }
 
