@@ -20,6 +20,14 @@ import {
   UpdateEmployeeSuccess,
   UpdateEmployeeFailure,
   UpdateEmployeeFailurePayload,
+  REMOVE_EMPLOYEE_REQUEST,
+  REMOVE_EMPLOYEE_SUCCESS,
+  REMOVE_EMPLOYEE_FAILURE,
+  RemoveEmployeeRequest,
+  RemoveEmployeeSuccess,
+  RemoveEmployeeFailure,
+  RemoveEmployeeSuccessPayload,
+  RemoveEmployeeFailurePayload,
 } from "./type";
 
 import {
@@ -112,5 +120,25 @@ export const updateEmployeeFailure = (
   payload : UpdateEmployeeFailurePayload
 ) : UpdateEmployeeFailure => ({
   type : UPDATE_EMPLOYEE_FAILURE,
+  payload,
+})
+
+// Remove Employee request actions
+export const deleteEmployeeRequest = (id: string) : RemoveEmployeeRequest => ({
+  type : REMOVE_EMPLOYEE_REQUEST,
+  id : id
+})
+
+export const deleteEmployeeSuccess = (
+  payload : RemoveEmployeeSuccessPayload
+): RemoveEmployeeSuccess => ({
+  type : REMOVE_EMPLOYEE_SUCCESS,
+  payload,
+})
+
+export const deleteEmployeeFailure = (
+  payload : RemoveEmployeeFailurePayload
+) : RemoveEmployeeFailure => ({
+  type : REMOVE_EMPLOYEE_FAILURE,
   payload,
 })
