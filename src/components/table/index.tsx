@@ -1,4 +1,6 @@
+import { useDispatch } from "react-redux"
 import styled from "styled-components"
+import { deleteEmployeeRequest } from "../../actions/employee/actions"
 import { IEmployee } from "../../actions/employee/type"
 
 const Table = styled.table`
@@ -50,11 +52,21 @@ interface IProps {
 
 const EmployeeTable = ( props: IProps) => {
     const { data_list, pending, error } = props
-    console.log(' table ', data_list);
+    const dispatched = useDispatch()
     
     const stringToDate = (str_data: string): Date => {
         return new Date(str_data)
     }
+
+    const handleRemove = (id: string, name : string) => {
+        if (id || id !== ''){
+            var isConfirm = window.confirm(`Are you sure to remove ${name}?`)
+            if(isConfirm){
+                dispatched(deleteEmployeeRequest(id))
+            }
+        }
+    }
+
     return <Table>
         <thead>
             <TableHeaderRow>
@@ -79,7 +91,7 @@ const EmployeeTable = ( props: IProps) => {
                         <BodyRowCell>{data.salary.toString()}</BodyRowCell>
                         <BodyRowCell>
                             <EditBtn href={"/update/"+data._id}>Edit</EditBtn>    
-                            <DeleteBtn>Delete</DeleteBtn>    
+                            <DeleteBtn onClick={() => handleRemove(data._id.toString(), data.name)}>Delete</DeleteBtn>    
                         </BodyRowCell>
                     </BodyRow>
                 ))
