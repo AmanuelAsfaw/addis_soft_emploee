@@ -5,6 +5,13 @@ import {
   CREATE_EMPLOYEE_REQUEST,
   CREATE_EMPLOYEE_FAILURE,
   CREATE_EMPLOYEE_SUCCESS,
+  GET_EMPLOYEE_REQUEST,
+  GetEmployeeSuccessPayload,
+  GetEmployeeSuccess,
+  GET_EMPLOYEE_SUCCESS,
+  GetEmployeeFailurePayload,
+  GetEmployeeFailure,
+  GET_EMPLOYEE_FAILURE,
 } from "./type";
 
 import {
@@ -19,6 +26,7 @@ import {
   AddEmployeeFailurePayload,
   AddEmployeeFailure,
   IEmployee,
+  GetEmployeeRequest,
 } from "./type";
 
 export const fetchEmployeeRequest = (): FetchEmployeeRequest => ({
@@ -56,5 +64,25 @@ export const addEmployeeFailure = (
   payload : AddEmployeeFailurePayload
 ) : AddEmployeeFailure => ({
   type : CREATE_EMPLOYEE_FAILURE,
+  payload,
+})
+
+// Get Employee by Id request actions
+export const getEmployeeByIdRequest = (id: string) : GetEmployeeRequest => ({
+  type : GET_EMPLOYEE_REQUEST,
+  id : id,
+})
+
+export const getEmployeeByIdSuccess = (
+  payload : GetEmployeeSuccessPayload
+): GetEmployeeSuccess => ({
+  type : GET_EMPLOYEE_SUCCESS,
+  payload,
+})
+
+export const getEmployeeByIdFailure = (
+  payload : GetEmployeeFailurePayload
+) : GetEmployeeFailure => ({
+  type : GET_EMPLOYEE_FAILURE,
   payload,
 })
