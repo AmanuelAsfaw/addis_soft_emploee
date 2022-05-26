@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import CreateEmployee from "../components/create"
+import FormEmployee from "../components/create/Form"
 const Title = styled.h1`
         padding : 10px;
     `
@@ -25,7 +25,7 @@ const CreatePage = () => {
     return <Wrapper>
         <Title>Create Employee</Title>
         <CreateLink href="/">Back</CreateLink>
-        <CreateEmployee/>
+        <FormEmployee isUpdate={false} employee={null}/>
     </Wrapper>
 }
 

@@ -1,7 +1,11 @@
+import { useEffect, useState } from "react"
+import { useDispatch, useSelector} from "react-redux"
 import { useParams } from "react-router-dom"
 import styled from "styled-components"
-import CreateEmployee from "../components/create"
-import UpdateEmployee from "../components/create/Update"
+import { getEmployeeByIdRequest } from "../actions/employee/actions"
+import { IEmployee } from "../actions/employee/type"
+import FormEmployee from "../components/create/Form"
+import { getEmployeeByIdSelector } from "../selectors/employee"
 
 const Title = styled.h1`
     padding : 10px;
@@ -25,11 +29,20 @@ const FormWrapper = styled.div`
 const UpdatePage = () => {
 
     let { id } = useParams()
+    const dispatch = useDispatch()
+    const employeeData = useSelector(getEmployeeByIdSelector)
+    useEffect(() => {
+        if(id && id !== ''){
+            console.log('try to get '+ id);
+            
+            dispatch(getEmployeeByIdRequest(id))
+        }
+    }, [id])
 
     return <Wrapper>
         <Title>Update Employee</Title>
         <CreateLink href="/">Back</CreateLink>
-        <UpdateEmployee id={id ? id :'/'}/>
+        <FormEmployee isUpdate={true} employee={employeeData}/>
     </Wrapper>
 }
 
