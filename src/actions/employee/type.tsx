@@ -6,6 +6,10 @@ export const CREATE_EMPLOYEE_REQUEST = "CREATE_EMPLOYEE_REQUEST";
 export const CREATE_EMPLOYEE_SUCCESS = "CREATE_EMPLOYEE_SUCCESS";
 export const CREATE_EMPLOYEE_FAILURE = "CREATE_EMPLOYEE_FAILURE";
 
+export const GET_EMPLOYEE_REQUEST = "GET_EMPLOYEE_REQUEST";
+export const GET_EMPLOYEE_SUCCESS = "GET_EMPLOYEE_SUCCESS";
+export const GET_EMPLOYEE_FAILURE = "GET_EMPLOYEE_FAILURE";
+
 export interface IEmployee {
   _id: number | string;
   name: string;
@@ -21,6 +25,7 @@ export interface EmployeeState {
   success : boolean;
   message : string | null;
   addedEmployee : IEmployee | null;
+  getEmployee : IEmployee | null;
 }
 
 // featch employees list data
@@ -74,10 +79,41 @@ export type AddEmployeeFailure = {
   payload : AddEmployeeFailurePayload;
 }
 
+// Get employee by id
+export interface GetEmployeeSuccessPayload {
+  success : boolean | false;
+  employee : IEmployee | null;
+  message : string | null;
+}
+
+export interface GetEmployeeFailurePayload {
+  error : string | Object | null;
+  message : string | null;
+  success : boolean | null | false;
+}
+
+export interface GetEmployeeRequest {
+  type : typeof GET_EMPLOYEE_REQUEST;
+  id : string;
+}
+
+export type GetEmployeeSuccess = {
+  type : typeof GET_EMPLOYEE_SUCCESS;
+  payload : GetEmployeeSuccessPayload;
+}
+
+export type GetEmployeeFailure = {
+  type : typeof GET_EMPLOYEE_FAILURE;
+  payload : GetEmployeeFailurePayload;
+}
+
 export type EmployeeActions =
   | FetchEmployeeRequest
   | FetchEmployeeSuccess
   | FetchEmployeeFailure
   | AddEmployeeRequest
   | AddEmployeeSuccess
-  | AddEmployeeFailure;
+  | AddEmployeeFailure
+  | GetEmployeeRequest
+  | GetEmployeeSuccess
+  | GetEmployeeFailure;
