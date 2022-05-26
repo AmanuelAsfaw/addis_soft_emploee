@@ -1,7 +1,12 @@
+import { useNavigate } from "react-router-dom";
+
 import {
     FETCH_EMPLOYEE_REQUEST,
     FETCH_EMPLOYEE_SUCCESS,
     FETCH_EMPLOYEE_FAILURE,
+    CREATE_EMPLOYEE_REQUEST,
+    CREATE_EMPLOYEE_SUCCESS,
+    CREATE_EMPLOYEE_FAILURE,
   } from "../actions/employee/type";
   
   import { EmployeeActions, EmployeeState } from "../actions/employee/type";
@@ -10,6 +15,9 @@ import {
     pending: false,
     employees: [],
     error: null,
+    success : false,
+    message : null,
+    addedEmployee : null,
   };
   
   export default (state = initialState, action: EmployeeActions) => {
@@ -32,6 +40,29 @@ import {
           pending: false,
           employees: [],
           error: action.payload.error,
+        };
+      case CREATE_EMPLOYEE_REQUEST:
+        return {
+          ...state,
+          pending: true,
+        };
+      case CREATE_EMPLOYEE_SUCCESS:
+        return {
+          ...state,
+          pending: false,
+          success: action.payload.success,
+          error: null,
+          addedEmployee : action.payload.addedEmployee,
+          message : action.payload.message 
+        };
+      case CREATE_EMPLOYEE_FAILURE:
+        return {
+          ...state,
+          pending: false,
+          addedEmployee: null,
+          success : false,
+          error: action.payload.error,
+          message : action.payload.message 
         };
       default:
         return {
