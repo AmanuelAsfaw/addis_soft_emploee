@@ -8,6 +8,9 @@ import {
     GET_EMPLOYEE_REQUEST,
     GET_EMPLOYEE_SUCCESS,
     GET_EMPLOYEE_FAILURE,
+    UPDATE_EMPLOYEE_REQUEST,
+    UPDATE_EMPLOYEE_SUCCESS,
+    UPDATE_EMPLOYEE_FAILURE,
   } from "../actions/employee/type";
   
   import { EmployeeActions, EmployeeState } from "../actions/employee/type";
@@ -19,6 +22,7 @@ import {
     success : false,
     message : null,
     addedEmployee : null,
+    updatedEmployee : null,
     getEmployee : null,
   };
   
@@ -85,6 +89,29 @@ import {
           ...state,
           pending: false,
           addedEmployee: null,
+          success : false,
+          error: action.payload.error,
+          message : action.payload.message 
+        };
+      case UPDATE_EMPLOYEE_REQUEST:
+        return {
+          ...state,
+          pending: true,
+        };
+      case UPDATE_EMPLOYEE_SUCCESS:
+        return {
+          ...state,
+          pending: false,
+          success: action.payload.success,
+          error: null,
+          updatedEmployee : action.payload.employee,
+          message : action.payload.message 
+        };
+      case UPDATE_EMPLOYEE_FAILURE:
+        return {
+          ...state,
+          pending: false,
+          updatedEmployee: null,
           success : false,
           error: action.payload.error,
           message : action.payload.message 
