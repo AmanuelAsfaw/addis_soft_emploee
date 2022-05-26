@@ -1,9 +1,9 @@
 import { SagaIterator } from "redux-saga";
 import { all, call, put, takeLatest } from "redux-saga/effects";
-import { addEmployeeFailure, addEmployeeSuccess, fetchEmployeeFailure, fetchEmployeeSuccess } from "../actions/employee/actions";
+import { addEmployeeFailure, addEmployeeSuccess, fetchEmployeeFailure, fetchEmployeeSuccess, getEmployeeByIdFailure, getEmployeeByIdSuccess } from "../actions/employee/actions";
 
-import { AddEmployeeRequest, CREATE_EMPLOYEE_REQUEST, FETCH_EMPLOYEE_REQUEST } from "../actions/employee/type";
-import { addEmployee, getEmployees } from "../api/employee";
+import { AddEmployeeRequest, CREATE_EMPLOYEE_REQUEST, FETCH_EMPLOYEE_REQUEST, GetEmployeeRequest, GET_EMPLOYEE_REQUEST } from "../actions/employee/type";
+import { addEmployee, getEmployeeById, getEmployees } from "../api/employee";
 
 /*
   Worker Saga: Fired on FETCH_Employee_REQUEST action
@@ -28,7 +28,7 @@ function* fetchGetEmployeesSaga(): any {
 }
 
 /*
-  Worker Saga: Fired on FETCH_Employee_REQUEST action
+  Worker Saga: Fired on CREATE_EMPLOYEE_REQUEST action
 */
 function* addEmployeeSage(action: AddEmployeeRequest) : any {
   try {
@@ -75,13 +75,63 @@ function* addEmployeeSage(action: AddEmployeeRequest) : any {
 }
 
 /*
-  Starts worker saga on latest dispatched `FETCH_Employee_REQUEST` action.
+  Worker Saga: Fired on CREATE_EMPLOYEE_REQUEST action
+*/
+function* getEmployeeByIdSage(action: GetEmployeeRequest) : any {
+  try {
+    console.log('id to get'+ action.id);
+    
+    const response = yield call(getEmployeeById, action.id)
+
+    console.log('get employee by id response ', response)
+    let data = response.data
+
+    if (data.success) {
+      let employee = {
+        _id : data.data._id, name : data.data.name,
+        birth_date: data.data.birth_date, 
+        gender: data.data.gender, salary: data.data.salary
+      }
+      yield put(
+        getEmployeeByIdSuccess({
+          employee : employee,
+          success : true,
+          message : data.message
+        })
+      )
+    }
+    else {
+      yield put(
+        getEmployeeByIdFailure(
+          {
+            error : data.message,
+            message : data.message,
+            success : false
+          }
+        )
+      )
+    }
+    
+  } catch (e) {
+    yield put(
+      getEmployeeByIdFailure({
+        error: (e as Error).message,
+        success : false,
+        message : (e as Error).message,
+      })
+    )
+  }
+}
+
+/*
+  Starts worker saga on latest dispatched `FETCH_Employee_REQUEST`, `CREATE_EMPLOYEE_REQUEST` action.
   Allows concurrent increments.
 */
 function* onEmployeeSaga() : SagaIterator{
   yield all([
     takeLatest(FETCH_EMPLOYEE_REQUEST, fetchGetEmployeesSaga),
     takeLatest(CREATE_EMPLOYEE_REQUEST, addEmployeeSage),
+    takeLatest(GET_EMPLOYEE_REQUEST, getEmployeeByIdSage),
   ]);
 }
 
