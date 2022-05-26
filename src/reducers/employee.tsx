@@ -11,6 +11,9 @@ import {
     UPDATE_EMPLOYEE_REQUEST,
     UPDATE_EMPLOYEE_SUCCESS,
     UPDATE_EMPLOYEE_FAILURE,
+    REMOVE_EMPLOYEE_REQUEST,
+    REMOVE_EMPLOYEE_SUCCESS,
+    REMOVE_EMPLOYEE_FAILURE,
   } from "../actions/employee/type";
   
   import { EmployeeActions, EmployeeState } from "../actions/employee/type";
@@ -112,6 +115,29 @@ import {
           ...state,
           pending: false,
           updatedEmployee: null,
+          success : false,
+          error: action.payload.error,
+          message : action.payload.message 
+        };
+      case REMOVE_EMPLOYEE_REQUEST:
+        return {
+          ...state,
+          pending: true,
+        };
+      case REMOVE_EMPLOYEE_SUCCESS:
+        return {
+          ...state,
+          pending: false,
+          success: true,
+          error: null,
+          deletedEmployee : action.payload.employee,
+          message : action.payload.message 
+        };
+      case REMOVE_EMPLOYEE_FAILURE:
+        return {
+          ...state,
+          pending: false,
+          addedEmployee: null,
           success : false,
           error: action.payload.error,
           message : action.payload.message 
