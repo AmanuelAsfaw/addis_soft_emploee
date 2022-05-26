@@ -23,3 +23,6 @@ export const updateEmployee = (employee : IEmployee) =>
       gender : employee.gender,
       birth_date : employee.birth_date
     })
+
+export const removeEmployeeById = (id : string) =>
+    axios.delete<any>(`http://localhost:3000/employees/${id}`)
