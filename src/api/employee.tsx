@@ -11,3 +11,6 @@ export const addEmployee = (employee:IEmployee) =>
     gender : employee.gender,
     birth_date : employee.birth_date
   })
+
+export const getEmployeeById = (id : string) =>
+    axios.get<any>(`http://localhost:3000/employees/628c705baf76203166abdb43`)
