@@ -8,6 +8,8 @@ const getEmployees = (state: AppState) => state.employees.employees;
 
 const getError = (state: AppState) => state.employees.error;
 
+const getAddEmployeeSucces = (state: AppState) => state.employees.success;
+
 export const getEmployeesSelector = createSelector(getEmployees, (employees) => employees);
 
 export const getPendingSelector = createSelector(
@@ -16,3 +18,5 @@ export const getPendingSelector = createSelector(
 );
 
 export const getErrorSelector = createSelector(getError, (error) => error);
+
+export const getAddEmployeeSuccesSelector = createSelector(getAddEmployeeSucces, (success) => success);
