@@ -13,4 +13,13 @@ export const addEmployee = (employee:IEmployee) =>
   })
 
 export const getEmployeeById = (id : string) =>
-    axios.get<any>(`http://localhost:3000/employees/628c705baf76203166abdb43`)
+    axios.get<any>(`http://localhost:3000/employees/${id}`)
+
+export const updateEmployee = (employee : IEmployee) =>
+    axios.put<any>(`http://localhost:3000/employees/${employee._id}`,{
+      _id : employee._id,
+      name : employee.name,
+      salary : employee.salary,
+      gender : employee.gender,
+      birth_date : employee.birth_date
+    })
