@@ -1,9 +1,11 @@
+import { useState } from "react";
 import styled from "styled-components"
 
 interface IinputProps {
-    type_value : string,
-    label : string,
-    handleOnChange : Function
+    type_value : string;
+    label : string;
+    handleOnChange : Function;
+    value : string | Number | null;
 }
 
 const Wrapper = styled.div`
@@ -24,11 +26,12 @@ const InputField = styled.input`
 `
 
 const LabledInputField = (props: IinputProps) => {
-    const { label, type_value, handleOnChange } = props
+    const { label, type_value, handleOnChange, value } = props
     
     return <Wrapper>
         <Label>{label}</Label>
-        <InputField type={type_value} required onChange={(e)=> handleOnChange(e.target.value)}></InputField>
+        <InputField type={type_value} required onChange={(e)=> handleOnChange(e.target.value)} 
+                            defaultValue={value?  value.toString() : ''}></InputField>
     </Wrapper>
 }
 

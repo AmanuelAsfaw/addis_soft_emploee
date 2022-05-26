@@ -6,9 +6,10 @@ interface ObjData {
 }
 
 interface IDropdownProps {
-    data_list : ObjData[],
-    label : string,
-    handleOnChange : Function
+    data_list : ObjData[];
+    label : string;
+    handleOnChange : Function;
+    value : string | Number | null;
 }
 
 const Wrapper = styled.div`
@@ -29,14 +30,14 @@ const InputField = styled.select`
 `
 
 const LabledDropdownField = (props: IDropdownProps) => {
-    const { data_list, label, handleOnChange } = props
+    const { data_list, label, handleOnChange, value } = props
 
     return <Wrapper>
         <Label>{label}</Label>
-        <InputField required onChange={(e) => handleOnChange(e.target.value)}>
-            <option key='optiondefault'  disabled selected value=''>Select {label}</option>
+        <InputField required onChange={(e) => handleOnChange(e.target.value)} defaultValue={value? value.toString(): ''}>
+            <option key='optiondefault'  disabled selected={ value? false: true } value=''>Select {label}</option>
             { data_list &&  data_list.map((data) => (
-                <option key={'option'+data.value} value={data.value}>{data.label}</option>
+                <option key={'option'+data.value} value={data.value}  >{data.label}</option>
             ))
             }
         </InputField>

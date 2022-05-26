@@ -17,16 +17,18 @@ const InputField = styled.input`
     width: 49%;
 `
 interface IDateFieldProps {
-    label : string,
-    handleOnChange : Function
+    label : string;
+    handleOnChange : Function;
+    value : string | Number | null;
 }
 
 const LabledDateInputField = (props: IDateFieldProps) => {
-    const { label, handleOnChange } = props
+    const { label, handleOnChange, value } = props
 
     return <Wrapper>
         <Label>{label}</Label>
-        <InputField type='date' required onChange={(event) => handleOnChange(event.target.value)}></InputField>
+        <InputField type='date' required onChange={(event) => handleOnChange(event.target.value)} 
+            defaultValue={value? value.toString(): ''}></InputField>
     </Wrapper>
 }
 
