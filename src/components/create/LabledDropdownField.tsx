@@ -9,7 +9,7 @@ interface IDropdownProps {
     data_list : ObjData[];
     label : string;
     handleOnChange : Function;
-    value : string | Number | null;
+    value : string | null;
 }
 
 const Wrapper = styled.div`
@@ -34,10 +34,10 @@ const LabledDropdownField = (props: IDropdownProps) => {
 
     return <Wrapper>
         <Label>{label}</Label>
-        <InputField required onChange={(e) => handleOnChange(e.target.value)} defaultValue={value? value.toString(): ''}>
-            <option key='optiondefault'  disabled selected={ value? false: true } value=''>Select {label}</option>
+        <InputField required onChange={(e) => handleOnChange(e.target.value)} defaultValue={value? value: ''}>
+            <option key='optiondefault'  disabled value=''>Select {label}</option>
             { data_list &&  data_list.map((data) => (
-                <option key={'option'+data.value} value={data.value}  >{data.label}</option>
+                <option key={'option'+data.value} value={data.value} selected={ value === data.value ? true: false }>{data.label}</option>
             ))
             }
         </InputField>

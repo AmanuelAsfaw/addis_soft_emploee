@@ -2,7 +2,7 @@ import { FormEvent, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { addEmployeeRequest } from '../../actions/employee/actions';
+import { addEmployeeRequest, updateEmployeeRequest } from '../../actions/employee/actions';
 import { IEmployee } from '../../actions/employee/type';
 import { getAddEmployeeSuccesSelector, getPendingSelector } from '../../selectors/employee';
 import LabledDateInputField from './LabledDateInputField';
@@ -71,12 +71,13 @@ const FormEmployee = (props : IFormProps) => {
         }
         else{
             if (isUpdate){
-                dispatch(addEmployeeRequest({
-                    name,
-                    birth_date : new Date(birth_date).toString(),
-                    gender,
-                    salary,
-                    _id : employee?._id?employee._id: '',
+                let id = employee? employee._id : '' 
+                dispatch(updateEmployeeRequest({
+                    _id : id,
+                    name : name,
+                    birth_date : birth_date.toString(),
+                    gender : gender,
+                    salary : salary
                 }))
                 setAfterCreate(true)
             }else{
@@ -98,13 +99,22 @@ const FormEmployee = (props : IFormProps) => {
         }
     }, [success, pending, afterCreate])
 
+    useEffect(() => {
+        if(employee){
+            setName(employee.name)
+            setBirthDate(employee.birth_date)
+            setGender(employee.gender)
+            setSalary(employee.salary)
+        }
+    }, [employee])
+
     return <Wrapper>
         <p>{errorMessage}</p>
         <form onSubmit={(e) => handleSubmit(e)}>
-            <LabledInputField label='Name' type_value='text' handleOnChange={setName} value={employee? employee.name: null}></LabledInputField>
+            <LabledInputField label='Name' type_value='text' handleOnChange={setName} value={employee? name: null}></LabledInputField>
             <LabledDateInputField label='Birth Date' handleOnChange={setBirthDate} value={employee? new Date(employee.birth_date).toISOString().slice(0, 10): null}></LabledDateInputField>
-            <LabledDropdownField label='Gender' data_list={dataList} handleOnChange={setGender} value={employee? employee.gender: null}></LabledDropdownField>
-            <LabledInputField label='Salary' type_value='number' handleOnChange={setSalary} value={employee? employee.salary: null}></LabledInputField>
+            <LabledDropdownField label='Gender' data_list={dataList} handleOnChange={setGender} value={employee? gender: null}></LabledDropdownField>
+            <LabledInputField label='Salary' type_value='number' handleOnChange={setSalary} value={employee? salary: null}></LabledInputField>
             <SubmitBtn type='submit'>{ isUpdate ? 'Update' : 'Submit' }</SubmitBtn>
         </form>
     </Wrapper>;
