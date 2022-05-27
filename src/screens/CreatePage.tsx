@@ -14,11 +14,7 @@ const CreateLink = styled.a`
     color: hsl(240deg 7% 97%);
     padding : 10px;
 `
-const FormWrapper = styled.div`
-    align-items: center;
-    justify-content: center;
-    display: flex;
-`
+
 const CreatePage = () => {
     
 

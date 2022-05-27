@@ -1,5 +1,4 @@
 import { createSelector } from "reselect";
-import employee from "../reducers/employee";
 
 import { AppState } from "../reducers/index";
 

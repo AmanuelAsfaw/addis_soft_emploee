@@ -97,7 +97,7 @@ const FormEmployee = (props : IFormProps) => {
         if(success && !pending && afterCreate){
             history('/')
         }
-    }, [success, pending, afterCreate])
+    }, [success, pending, afterCreate, history])
 
     useEffect(() => {
         if(employee){

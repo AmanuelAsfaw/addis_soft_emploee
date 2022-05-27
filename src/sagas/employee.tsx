@@ -217,7 +217,7 @@ function* removeEmployeeSage(action: RemoveEmployeeRequest) : any {
       deleteEmployeeFailure({
         error: (e as Error).message,
         success : false,
-        message : (e as Error).message,
+        message : 'Error from frontend catch : '+(e as Error).message,
       })
     )
     yield put(fetchEmployeeRequest())
@@ -234,6 +234,7 @@ function* onEmployeeSaga() : SagaIterator{
     takeLatest(CREATE_EMPLOYEE_REQUEST, addEmployeeSage),
     takeLatest(GET_EMPLOYEE_REQUEST, getEmployeeByIdSage),
     takeLatest(REMOVE_EMPLOYEE_REQUEST, removeEmployeeSage),
+    takeLatest(UPDATE_EMPLOYEE_REQUEST, updateEmployeeSage),
   ]);
 }
 

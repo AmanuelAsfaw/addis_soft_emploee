@@ -1,9 +1,8 @@
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import { useDispatch, useSelector} from "react-redux"
 import { useParams } from "react-router-dom"
 import styled from "styled-components"
 import { getEmployeeByIdRequest } from "../actions/employee/actions"
-import { IEmployee } from "../actions/employee/type"
 import FormEmployee from "../components/create/Form"
 import { getEmployeeByIdSelector } from "../selectors/employee"
 
@@ -21,11 +20,7 @@ const CreateLink = styled.a`
     color: hsl(240deg 7% 97%);
     padding : 10px;
 `
-const FormWrapper = styled.div`
-    align-items: center;
-    justify-content: center;
-    display: flex;
-`
+
 const UpdatePage = () => {
 
     let { id } = useParams()
@@ -37,7 +32,7 @@ const UpdatePage = () => {
             
             dispatch(getEmployeeByIdRequest(id))
         }
-    }, [id])
+    }, [id, dispatch])
 
     return <Wrapper>
         <Title>Update Employee</Title>

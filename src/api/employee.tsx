@@ -1,11 +1,13 @@
 import axios from "axios";
 import { IEmployee } from "../actions/employee/type";
 
+const IP_address = 'https://obscure-mesa-34381.herokuapp.com/employees/'
+
 export const getEmployees = () =>
-    axios.get<IEmployee[]>("http://localhost:3000/employees");
+    axios.get<IEmployee[]>(IP_address);
 
 export const addEmployee = (employee:IEmployee) => 
-  axios.post<IEmployee>('http://localhost:3000/employees', {
+  axios.post<IEmployee>(IP_address, {
     name : employee.name,
     salary : employee.salary,
     gender : employee.gender,
@@ -13,10 +15,10 @@ export const addEmployee = (employee:IEmployee) =>
   })
 
 export const getEmployeeById = (id : string) =>
-    axios.get<any>(`http://localhost:3000/employees/${id}`)
+    axios.get<any>(`${IP_address}${id}`)
 
 export const updateEmployee = (employee : IEmployee) =>
-    axios.put<any>(`http://localhost:3000/employees/${employee._id}`,{
+    axios.put<any>(`${IP_address}${employee._id}`,{
       _id : employee._id,
       name : employee.name,
       salary : employee.salary,
@@ -25,4 +27,4 @@ export const updateEmployee = (employee : IEmployee) =>
     })
 
 export const removeEmployeeById = (id : string) =>
-    axios.delete<any>(`http://localhost:3000/employees/${id}`)
+    axios.delete<any>(`${IP_address}${id}`)
