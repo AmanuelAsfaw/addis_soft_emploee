@@ -1,46 +1,85 @@
-# Getting Started with Create React App
+# Addis-Soft Employee Management App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+"addis_soft_employee " this is a two-page web app built with React-Typescript, Styled-Components and redux-saga. The home page show about Employees info, the Create page give access to add Employee, Update page give access to update Employee.     
 
-In the project directory, you can run:
 
-### `npm start`
+## Live Demo
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- [Live link](https://aman-employee.herokuapp.com/)
+).
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### Features implemented so far are:
 
-### `npm test`
+- Project Setup with React Installations
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Built With
 
-### `npm run build`
+- React (A free and open-source front-end JavaScript and TypeScript library for building user interfaces based on UI components)
+- Styled-Components (styled-components is the result of wondering how we could enhance CSS for styling React component systems.).
+- Redux-Saga (It enable numerous approaches to tackling parallel execution, task concurrency, task racing, task cancellation, and more. Keep total control over the flow of your code.)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+To get a local copy up and running follow these simple example steps.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Prerequisites
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+The basic requirements for building the executable are:
 
-### `npm run eject`
+- A working browser application (Google chrome, Mozilla Fire fox, Microsoft edge ...)
+- VSCode or any other equivalent code editor
+- Node Package Manager (For installing packages like Lighthous, webhint & stylelint used for checking for debugging bad codes before deployment)
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+# Getting Started
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+#### Cloning the project
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+```
+git clone  https://github.com/AmanuelAsfaw/addis_soft_emploee.git
+```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## Getting packages and dependencies
 
-## Learn More
+To get all package modules required to build the project run:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```
+npm install
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+every package module required to build the project is listed in the package.json file. this is used as a reference to get all dependencies.
+
+## Building
+
+To build the project run:
+
+```
+npm run build
+```
+
+after you run this sucessfully you'd locate the build from in the `build` folder located from the parent directory of the project.
+
+## Running
+
+To run the program on a browser through a server run this command in your cli
+
+```
+npm start
+```
+
+This should open the page in your localhost on port 3000. then you'd be able to view the built page generated using webpack.
+
+👤 **Authors**
+
+
+- GitHub: [@Amanuel Asfaw](https://github.com/AmanuelAsfaw)
+## Show your support
+
+Give a ⭐️ if you like this project!
+
+## Acknowledgments
+
+- Microverse
+- My coding partners(@usorfaitheloho)
+
+## 📝 License
+
+This project is [MIT](./MIT.md) licensed.
