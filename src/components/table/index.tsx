@@ -79,9 +79,13 @@ const EmployeeTable = ( props: IProps) => {
         </thead>
         <tbody>
             {pending? (
-                <Paragraph>Loading...</Paragraph>
+                <tr>
+                    <td rowSpan={5}>Loading...</td>
+                </tr>
             ) : error? (
-                <Paragraph>Error... {error}</Paragraph>
+                <tr>
+                    <td rowSpan={5}>Error... {error}</td>
+                </tr>                
             ):(
                 data_list.map((data)=> (
                     <BodyRow key={'tablerow'+data._id}>
@@ -97,7 +101,10 @@ const EmployeeTable = ( props: IProps) => {
                 ))
             )}
             {(!data_list.length && !error && !pending) && (
-                <tr><Paragraph>Employee Not Found</Paragraph></tr>
+                <tr>
+                    <td>ass</td>
+                    <td rowSpan={4}><Paragraph>Employee Not Found</Paragraph></td>
+                </tr>
                 
             )}
         </tbody>

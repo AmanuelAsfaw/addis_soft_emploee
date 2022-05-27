@@ -209,6 +209,7 @@ function* removeEmployeeSage(action: RemoveEmployeeRequest) : any {
           }
         )
       )
+      yield put(fetchEmployeeRequest())
     }
     
   } catch (e) {
@@ -219,6 +220,7 @@ function* removeEmployeeSage(action: RemoveEmployeeRequest) : any {
         message : (e as Error).message,
       })
     )
+    yield put(fetchEmployeeRequest())
   }
 }
 
